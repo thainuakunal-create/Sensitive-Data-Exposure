@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Local Secret Scanner | Live Findings</title>
+  <style>
+    :root { color-scheme: dark; --panel: #111c2e; --muted: #9fb0c8; --line: #283750; }
+    * { box-sizing: border-box; }
+    body { margin: 0; min-height: 100vh; padding: 42px 22px; background: #09111f; color: #edf4ff; font: 15px/1.5 Segoe UI, Arial, sans-serif; }
+    main { width: min(100%, 1040px); margin: auto; }
+    .eyebrow { color: #59d6bd; text-transform: uppercase; letter-spacing: .14em; font-size: 12px; font-weight: 700; }
+    h1 { margin: 8px 0; font-size: clamp(30px, 5vw, 46px); letter-spacing: -.04em; }
+    .intro { color: var(--muted); margin: 0 0 28px; }
+    .card { overflow: hidden; border: 1px solid var(--line); border-radius: 16px; background: var(--panel); box-shadow: 0 18px 60px #0005; }
+    .card-head { display: flex; justify-content: space-between; align-items: center; gap: 12px; padding: 18px 20px; border-bottom: 1px solid var(--line); }
+    .card-head strong { font-size: 16px; }
+    #status { color: var(--muted); font-size: 13px; }
+    .table-wrap { overflow-x: auto; }
+    table { width: 100%; border-collapse: collapse; text-align: left; }
+    th, td { padding: 14px 20px; border-bottom: 1px solid var(--line); }
+    th { color: #9fb0c8; text-transform: uppercase; letter-spacing: .08em; font-size: 11px; }
+    td { font-variant-numeric: tabular-nums; }
+    tbody tr:last-child td { border-bottom: 0; }
+    .severity { display: inline-block; min-width: 82px; text-align: center; border-radius: 999px; padding: 4px 10px; color: white; font-weight: 700; font-size: 12px; }
+    .critical { background: #d83a50; } .high { background: #e56b32; } .medium { background: #bc831e; } .low, .info { background: #53657e; }
+    .empty { padding: 34px 20px; text-align: center; color: var(--muted); }
+    .foot { margin-top: 14px; color: #8293aa; font-size: 12px; }
+  </style>
+</head>
+<body>
+  <main>
+    <div class="eyebrow">Local scanner · live monitor</div>
+    <h1>Findings</h1>
+    <p class="intro">Masked detector results saved locally. This table refreshes automatically.</p>
+    <section class="card" aria-label="Scanner findings">
+      <div class="card-head"><strong>Recent detections</strong><span id="status">Connecting…</span></div>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Time</th><th>Finding</th><th>Severity</th></tr></thead>
+          <tbody id="rows"><tr><td colspan="3" class="empty">Loading findings…</td></tr></tbody>
+        </table>
+      </div>
+    </section>
+    <p class="foot">Only masked values are persisted. Refresh interval: 3 seconds.</p>
+  </main>
+  <script>
+    const rows = document.getElementById('rows');
+    const status = document.getElementById('status');
+    async function loadFindings() {
+      try {
+        const response = await fetch(`findings.json?t=${Date.now()}`, { cache: 'no-store' });
+        if (!response.ok) throw new Error(`HTTP ${response.status}`);
+        const findings = await response.json();
+        rows.replaceChildren();
+        if (!Array.isArray(findings) || findings.length === 0) {
+          const tr = document.createElement('tr');
+          const td = document.createElement('td');
+          td.colSpan = 3; td.className = 'empty'; td.textContent = 'No findings recorded yet.';
+          tr.append(td); rows.append(tr);
+        } else {
+          for (const finding of [...findings].reverse()) {
+            const tr = document.createElement('tr');
+            const time = document.createElement('td'); time.textContent = finding.time || '—';
+            const summary = document.createElement('td'); summary.textContent = finding.summary || '—';
+            const sevCell = document.createElement('td');
+            const badge = document.createElement('span');
+            const severity = String(finding.severity || 'Info');
+            badge.className = `severity ${severity.toLowerCase()}`; badge.textContent = severity;
+            sevCell.append(badge); tr.append(time, summary, sevCell); rows.append(tr);
+          }
+        }
+        status.textContent = `Updated ${new Date().toLocaleTimeString()} · ${findings.length || 0} total`;
+      } catch (error) {
+        status.textContent = 'Waiting for findings.json';
+      }
+    }
+    loadFindings();
+    setInterval(loadFindings, 3000);
+  </script>
+</body>
+</html>

@@ -1,0 +1,3 @@
+secrets.env:2: password=Fak***********nly | severity=HIGH | EXPOSED (plaintext, unencrypted; Windows ACL check unavailable)
+secrets.env:3: api_key=FAK*****************XYZ | severity=CRITICAL | EXPOSED (plaintext, unencrypted; Windows ACL check unavailable)
+Summary: 2 exposed plaintext finding(s); values masked.

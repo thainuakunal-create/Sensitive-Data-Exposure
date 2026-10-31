@@ -1,0 +1,2 @@
+Project notes: review the scanner output and prepare a short demonstration.
+The detector should stay quiet when a normal sentence mentions passwords in general.

@@ -1,0 +1,3 @@
+# FAKE training values only; intentionally plaintext for scanner demo.
+DB_PASSWORD=FakeP@ss_lab_only
+AWS_API_KEY=FAKE-AKIA0987654321WXYZ

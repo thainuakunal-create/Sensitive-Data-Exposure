@@ -1,0 +1,17 @@
+Session: 2026–27
+LOCAL SECRET EXPOSURE SCANNER — FIVE-MINUTE DEMO RUN SHEET
+
+Total target time: 05:00
+Pace: short narration, with time reserved to read the dashboard and perform the live scan.
+
+00:00–00:20  Slide 1 — Introduce the local scanner and demo scope.
+00:20–00:50  Slide 2 — Explain the plaintext config-file problem and scope.
+00:50–01:25  Slide 3 — Walk through file → scanner → masked finding → JSON → browser.
+01:25–01:55  Slide 4 — Show patterns, severity mapping, masking, and extension-based exposure label.
+01:55–03:00  Slide 5 — Let the audience read the two masked dashboard findings; mention the clean-file result.
+03:00–04:00  Slide 6 — Keep dashboard open; run scanner.py against secrets.env; show console results; wait up to one refresh interval.
+04:00–05:00  Slide 7 — State limits, next improvements, and close.
+
+Live demo command: python scanner.py secrets.env
+Expected: one Medium password finding and one High API-key finding, both masked and labeled EXPOSED/PLAINTEXT. The dashboard should show the saved rows on its next three-second refresh.
+Backup: evidence/day_frontend_live.png and findings.json.

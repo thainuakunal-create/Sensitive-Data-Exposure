@@ -1,0 +1,2 @@
+# Training fixture contains intentionally plaintext fake credentials.
+secrets.env

@@ -1,0 +1,4 @@
+secrets.env:2  Fak***********nly  EXPOSED/PLAINTEXT  [Medium]
+secrets.env:3  FAK*****************XYZ  EXPOSED/PLAINTEXT  [High]
+secrets.env:2  Fak***********nly  EXPOSED/PLAINTEXT  [Medium]
+secrets.env:3  FAK*****************XYZ  EXPOSED/PLAINTEXT  [High]

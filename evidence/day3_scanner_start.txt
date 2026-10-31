@@ -1,0 +1,2 @@
+C:\Users\Kunal\Documents\Codex\2026-10-01\files-pasted-by-the-user-today\outputs\secrets.env:2  Fak***********nly  [Medium]  EXPOSED/PLAINTEXT
+C:\Users\Kunal\Documents\Codex\2026-10-01\files-pasted-by-the-user-today\outputs\secrets.env:3  FAK*****************XYZ  [High]  EXPOSED/PLAINTEXT

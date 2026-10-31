@@ -1,0 +1,22 @@
+[
+  {
+    "time": "11:36:09",
+    "summary": "secrets.env:2  Fak***********nly  EXPOSED/PLAINTEXT",
+    "severity": "Medium"
+  },
+  {
+    "time": "11:36:09",
+    "summary": "secrets.env:3  FAK*****************XYZ  EXPOSED/PLAINTEXT",
+    "severity": "High"
+  },
+  {
+    "time": "11:37:19",
+    "summary": "secrets.env:2  Fak***********nly  EXPOSED/PLAINTEXT",
+    "severity": "Medium"
+  },
+  {
+    "time": "11:37:19",
+    "summary": "secrets.env:3  FAK*****************XYZ  EXPOSED/PLAINTEXT",
+    "severity": "High"
+  }
+]
